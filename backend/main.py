@@ -61,9 +61,16 @@ def fetch_products():
 
     return products
 
-@app.get("/products")
+from fastapi import APIRouter
+
+router = APIRouter()
+
+@router.api_route("/products", methods=["GET", "HEAD"])
 def get_products():
     return fetch_products()
+
+app.include_router(router)
+
 
 @app.post("/clickout")
 def log_click(request: Request):
